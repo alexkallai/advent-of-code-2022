@@ -16,26 +16,17 @@ def add_calories(list_of_calorie_values):
     return total
 
 from_idx = 0
-to_idx = 0
-
-max_calorie_value = 0
 list_of_calorie_values = []
 
 runner_index = 0
 while runner_index < len(file_lines_list):
-    to_idx = runner_index
 
     if file_lines_list[runner_index] == "\n":
-        print("\n\n")
-        actual_calorie_value = add_calories(file_lines_list[from_idx:to_idx])
-        list_of_calorie_values.append(actual_calorie_value)
-        if actual_calorie_value > max_calorie_value:
-            max_calorie_value = actual_calorie_value
+        list_of_calorie_values.append(add_calories(file_lines_list[from_idx:runner_index]))
         from_idx = runner_index +1
 
     runner_index += 1
+
 list_of_calorie_values.sort()
 
-print(list_of_calorie_values)
-print("\n")
 print(add_calories(list_of_calorie_values[-4:-1]))
