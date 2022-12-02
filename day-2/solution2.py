@@ -7,62 +7,61 @@ file_arg = os.path.join(file_folder_path, "input.txt")
 with open(file_arg, "r", encoding = "utf-8") as f:
     file_lines_list = f.readlines()
 # INPUT FILE ALREADY READ IN
-dict_enemy = {
+
+my_dict = {
+"X": "lose",
+"Y": "draw",
+"Z": "win"
+}
+enemy_dict = {
 "A": "rock",
 "B": "paper",
 "C": "scissors"
 }
-dict_me = {
-"X": "lose", # i lose
-"Y": "draw", # draw
-"Z": "win" # i win
-}
-dict_who_beats_who = {
-"rock": "scissors",
-"paper": "rock",
-"scissors": "paper"
-}
-dict_who_loses_to_who = {
-"paper": "rock",
-"rock": "paper",
-"scissors": "paper"
-}
-dict_draw= {
-"rock": "rock",
-"paper": "paper",
-"scissors": "scissors"
-}
-my_result_dict = {
-"lose": dict_who_loses_to_who,
-"draw": dict_draw,
-"win": dict_who_beats_who
-}
-dict_points = {
+value_dict = {
 "rock": 1,
 "paper": 2,
 "scissors": 3
 }
+outcome_value_dict = {
+"lose": 0,
+"draw": 3,
+"win": 6
+}
+# enemy draw : my draw
+draw_this_to_win = {
+"rock": "paper",
+"paper": "scissors",
+"scissors": "rock"
+}
+draw_this_to_lose = {
+"rock": "scissors",
+"paper": "rock",
+"scissors": "paper"
+}
+draw_this_to_draw = {
+"rock": "rock",
+"paper": "paper",
+"scissors": "scissors"
+}
+win_lose_draw_dicts = {
+"win": draw_this_to_win,
+"draw": draw_this_to_draw,
+"lose": draw_this_to_lose
+}
 
-my_total_score = 0
-for index, line in enumerate(file_lines_list):
-    enemy_draw = line.split(" ")[0]
-    my_draw = line.split(" ")[1].strip()
+total_score = 0
+for line in file_lines_list:
+    enemy_draw_raw = line.split(" ")[0]
+    my_draw_raw = line.split(" ")[1].strip()
 
-    enemy_draw_plain = dict_enemy[enemy_draw]
-    win_draw_lose_dict = my_result_dict[dict_me[my_draw]]
-    my_draw_plain = win_draw_lose_dict[enemy_draw_plain]
-    draw = 0
-    if enemy_draw_plain == my_draw_plain:
-        draw = 1
+    enemy_draw_evaluated = enemy_dict[enemy_draw_raw]
 
-    i_won = 0
-    if draw != 1:
-        if dict_who_beats_who[my_draw_plain] == enemy_draw_plain:
-            i_won = 1
-        else:
-            i_won = 0
-    this_rounds_score = i_won * 6 + dict_points[my_draw_plain] + draw * 3
-    my_total_score += this_rounds_score
+    should_i_win_lose_draw = my_dict[my_draw_raw]
+    dict_to_get_what_i_should_draw_from = win_lose_draw_dicts[should_i_win_lose_draw]
+    my_draw_evaluated = dict_to_get_what_i_should_draw_from[enemy_draw_evaluated]
 
-print(my_total_score)
-print("8436 incorrect")
+    this_rounds_sum = value_dict[my_draw_evaluated] + outcome_value_dict[should_i_win_lose_draw]
+    total_score += this_rounds_sum
+
+print(total_score)
