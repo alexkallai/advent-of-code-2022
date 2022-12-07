@@ -54,12 +54,15 @@ for line in files_path_list:
     folder_name = line.rpartition("\\")[0]
     print("\t"+folder_name)
     print("\t"+file_name)
+    file_size = file_struct_dict[line]
+    file_plus_size = {file_name: file_size}
     if folder_name in dict_of_files.keys():
-        dict_of_files[folder_name].extend([file_name])
+        dict_of_files[folder_name].extend([file_plus_size])
     else:
-        dict_of_files.update({folder_name: [file_name]})
-def sum_keys(path, filename):
+        dict_of_files.update({folder_name: [file_plus_size]})
 
-size_of_dicts
-for key in dict_of_files:
+#def sum_keys(path, filename):
+
+#size_of_dicts
+#for key in dict_of_files:
     
