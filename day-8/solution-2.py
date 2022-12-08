@@ -21,15 +21,6 @@ def get_view_score(row_idx, column_idx):
     viewing_score_left = 0
     viewing_score_down = 0
     viewing_score_right = 0
-
-    if row_idx == 0:
-        viewing_score_up = 0
-    if column_idx == 0:
-        viewing_score_left = 0
-    if row_idx == len(file_lines_list)-1:
-        viewing_score_down = 0
-    if column_idx == len(file_lines_list[row_idx])-1:
-        viewing_score_right = 0
     
     visible_from_left = True
     visible_from_right = True
@@ -71,4 +62,3 @@ for index_row, row in enumerate(file_lines_list):
             max_view_score = current_score
 
 print(max_view_score)
-print("1144660 too high")
