@@ -37,6 +37,19 @@ def add_tail_to_location_list():
     global tail_dict
     tail_location_list.append(f"{tail_dict['x']} {tail_dict['y']}")
 
+def print_head_tail():
+    global head_dict
+    global tail_dict
+    max_x = max(head_dict["x"], tail_dict["x"])
+    max_y = max(head_dict["y"], tail_dict["y"])
+
+    array_2d = [["."] * 20] * 20
+    offset = 10
+    array_2d[head_dict["x"]+offset][head_dict["y"]+offset] = "H"
+    array_2d[tail_dict["x"]+offset][tail_dict["y"]+offset] = "T"
+    for row in array_2d:
+            print(row)
+
 def move_tail(head_dict_initial, head_dict):
     global tail_dict
     x_difference = head_dict["x"] - tail_dict["x"]
@@ -60,6 +73,7 @@ def move_tail(head_dict_initial, head_dict):
     print("Head dict initial", head_dict_initial)
     print("Head dict        ", head_dict)
     print("Tail dict        ", tail_dict)
+    #print_head_tail()
     # if they are neighbours
     if x_abs_diff < 2 and y_abs_diff < 2:
         print("-------------->")
@@ -97,17 +111,13 @@ for index_row, row in enumerate(file_lines_list):
     print("Current row: ", row)
     direction = row.split(" ")[0]
     cycle = int(row.split(" ")[1])
-    #add_tail_to_location_list()
+    add_tail_to_location_list()
 
     for cycle_no in range(cycle):
-        add_tail_to_location_list()
         head_dict_initial =head_dict.copy()
         head_dict[ direction_dict[ direction ] ] += direction_sign_dict[ direction ] * 1
         move_tail(head_dict_initial, head_dict)
-
-        #print(f"Moving in the direction of: {direction_dict[direction]}")
-        #print("Tail dict", tail_dict)
-        #print("Head dict", head_dict)
+        add_tail_to_location_list()
 
 
 
