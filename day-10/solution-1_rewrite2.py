@@ -48,5 +48,4 @@ for index, line in enumerate(file_lines_list):
         check_cycle(cycle_index)
         cycle_index += 1
 
-print("10140, 11560, 12720 14700 incorrect")
 print(sum_of_signal_strength)

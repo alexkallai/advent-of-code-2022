@@ -23,11 +23,6 @@ def check_cycle(cycle_index):
     global screen
     screen_line_number = int(cycle_index / CRT_WIDTH)
     screen_char_index = int(cycle_index % CRT_WIDTH)
-    print(cycle_index)
-    print("line ", screen_line_number)
-    print("char ", screen_char_index)
-    print("sprite:")
-    print("\n")
 
     sprite_index_list = [register, register+1, register+2]
     if screen_char_index in sprite_index_list:
