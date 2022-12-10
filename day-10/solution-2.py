@@ -21,6 +21,9 @@ def check_cycle(cycle_index):
     global CRT_HEIGHT
     global CRT_WIDTH
     global screen
+    if cycle_index >= CRT_HEIGHT * CRT_WIDTH:
+        return
+
     screen_line_number = int(cycle_index / CRT_WIDTH)
     screen_char_index = int(cycle_index % CRT_WIDTH)
 
