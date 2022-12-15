@@ -62,7 +62,7 @@ for index, line in enumerate(file_lines_list):
 
 
 set_of_all_checked_coordinates = set()
-#set_of_all_checked_coordinates = set_of_sensors.union(set_of_beacons)
+
 for device in list_of_devices:
     sensor_x = device[1].x
     sensor_y = device[1].y
@@ -70,30 +70,18 @@ for device in list_of_devices:
     beacon_y = device[0].y
     current_sensor_beacon_manhattan_distance = manhattan_distance(beacon_x, sensor_x, beacon_y, sensor_y)
 
-    runner_distance = 0
+    for x_runner in range(sensor_x - current_sensor_beacon_manhattan_distance, sensor_x + current_sensor_beacon_manhattan_distance + 1):
+        for y_runner in range( sensor_y - current_sensor_beacon_manhattan_distance, sensor_y + current_sensor_beacon_manhattan_distance + 1):
 
-    while runner_distance < current_manhattan_distance:
-        runner_distance += 1
-        print(f"{runner_distance}")
-        should_while_break = False
-        for x_runner in range(sensor_x - runner_distance, sensor_x + runner_distance + 1):
-            for y_runner in range( sensor_y - runner_distance, sensor_y + runner_distance + 1):
-
-                current_manhattan_distance = manhattan_distance(x_runner, sensor_x, y_runner, sensor_y)
-                if current_manhattan_distance == runner_distance:
-                    set_of_all_checked_coordinates.add((x_runner, y_runner))
-                    if (x_runner, y_runner) in set_of_beacons:
-                        should_while_break = True
-        if should_while_break:
-            print(f"broke with runner distance: {runner_distance}")
-            break
+            current_manhattan_distance = manhattan_distance(x_runner, sensor_x, y_runner, sensor_y)
+            if current_manhattan_distance <= current_sensor_beacon_manhattan_distance:
+                set_of_all_checked_coordinates.add((x_runner, y_runner))
 
 print("Last section")
 number_of_taken_positions = 0
-sensor_y = 10
-for x_runner in range(-100000, 100000):
-    if x_runner % 1000 == 0:
-        print(x_runner)
+#sensor_y = 10
+sensor_y = 2000000
+for x_runner in range(-10000000, 10000000):
     if (x_runner, sensor_y) in set_of_all_checked_coordinates:
         number_of_taken_positions += 1
 
